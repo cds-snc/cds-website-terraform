@@ -4,9 +4,17 @@ resource "aws_s3_bucket" "website-asset-bucket" {
   acl    = "public-read"
 
   tags = {
-    Name        = "CDS Website Assets"
+    Name       = var.product_name
+    CostCenter = var.product_name
+  }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = "arn"
+        sse_algorithm     = "aws:kms"
+      }
+    }
   }
 
   #tfsec:ignore:AWS002 - No logging enabled
-  #tfsec:ignore:AWS017 - Defines an unencrypted S3 bucket
 }
