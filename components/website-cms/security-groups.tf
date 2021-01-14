@@ -34,6 +34,13 @@ resource "aws_security_group" "website-cms-ec2" {
     to_port     = 1337
     cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS008
   }
+  
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   tags = {
     CostCenter = "website-cms"
