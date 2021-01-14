@@ -1,0 +1,21 @@
+name: "Terraform security scan"
+
+on: [pull_request]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  terraform-security-scan:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Terraform security scan
+        uses: triat/terraform-security-scan@cbe6721405b6bb36568316668b69f17cf5aa7023
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
