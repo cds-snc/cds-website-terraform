@@ -20,7 +20,7 @@ env:
   TF_VAR_rds_cluster_password: ${{ secrets.RDS_CLUSTER_PASSWORD }}
 
 jobs:
-  terraform-apply:
+  terraform-plan:
     runs-on: ubuntu-latest
 
     steps:
