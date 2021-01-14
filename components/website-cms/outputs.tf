@@ -1,5 +1,5 @@
 output "db_host" {
-  value = aws_db_instance.website-cms-database.address
+  value = aws_db_instance.website-cms-database.endpoint
 }
 
 output "ip" {
