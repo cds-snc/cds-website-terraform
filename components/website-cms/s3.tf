@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "website-asset-bucket" {
-  bucket = "cds-website-assets"
+  bucket = "cds-website-assets-prod"
   #tfsec:ignore:AWS001 - Public read access
   acl    = "public-read"
 
