@@ -19,6 +19,7 @@ resource "aws_db_instance" "website-cms-database" {
   storage_type              = "gp2"
   engine                    = "postgres"
   engine_version            = "10.15"
+  identifier                = "strapi"
   instance_class            = "db.t3.micro"
   name                      = "strapi"
   final_snapshot_identifier = "strapi-${random_string.random.result}"
