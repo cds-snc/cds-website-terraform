@@ -64,7 +64,7 @@ resource "aws_security_group" "ecs_tasks" {
     protocol    = "-1"
     from_port   = 0
     to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS009
   }
 }
 

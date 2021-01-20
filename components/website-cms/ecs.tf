@@ -10,6 +10,7 @@ data "template_file" "cms_app" {
     fargate_cpu    = var.fargate_cpu
     fargate_memory = var.fargate_memory
     aws_region     = "ca-central-1"
+  }
 }
 
 resource "aws_ecs_service" "website-cms-ecs" {

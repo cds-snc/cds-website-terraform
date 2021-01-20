@@ -4,12 +4,13 @@ resource "aws_alb" "cms-load-balancer" {
   name            = "cms-load-balancer"
   subnets         = aws_subnet.public.*.id
   security_groups = [aws_security_group.website-cms-lb.id]
+  internal = true
 }
 
 resource "aws_alb_target_group" "app" {
   name        = "cms-target-group"
   port        = 80
-  protocol    = "HTTP"
+  protocol    = "HTTPS"
   vpc_id      = aws_vpc.website-cms.id
   target_type = "ip"
 
