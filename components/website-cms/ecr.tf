@@ -14,12 +14,12 @@ resource "aws_ecr_lifecycle_policy" "policy" {
       "rules": [
           {
               "rulePriority": 1,
-              "description": "Keep last 20 images",
+              "description": "Keep last 10 images",
               "selection": {
                   "tagStatus": "tagged",
                   "tagPrefixList": ["v"],
                   "countType": "imageCountMoreThan",
-                  "countNumber": 20
+                  "countNumber": 10
               },
               "action": {
                   "type": "expire"
@@ -29,10 +29,3 @@ resource "aws_ecr_lifecycle_policy" "policy" {
   }
   EOF
   }
-
-output "ecr_repository_url" {
-  value = {
-    for repo in aws_ecr_repository.image-repository :
-    repo.name => repo.repository_url
-  }
-}
