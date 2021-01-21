@@ -10,6 +10,7 @@ data "template_file" "cms_app" {
     fargate_cpu    = var.fargate_cpu
     fargate_memory = var.fargate_memory
     aws_region     = "ca-central-1"
+    db_host        = aws_db_instance.website-cms-database.endpoint
   }
 }
 
@@ -17,11 +18,11 @@ resource "aws_ecs_service" "website-cms-ecs" {
   name          = "website-cms-ecs"
   cluster       = "website-cms-cluster"
   desired_count = 1
-  launch_type   = FARGATE
+  launch_type   = "FARGATE"
 
   network_configuration {
     security_groups  = [aws_security_group.ecs_tasks.id]
-    subnets          = aws_subnet.cms-website-private.*.id
+    subnets          = aws_subnet.website-cms-private.*.id
     assign_public_ip = true
   }
 

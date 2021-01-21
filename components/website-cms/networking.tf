@@ -174,6 +174,6 @@ resource "aws_eip" "website-cms" {
 
 resource "aws_nat_gateway" "gw" {
   count         = 2
-  subnet_id     = element(aws_subnet.cms-website-public.*.id, count.index)
+  subnet_id     = element(aws_subnet.website-cms-public.*.id, count.index)
   allocation_id = element(aws_eip.website-cms.*.id, count.index)
 }

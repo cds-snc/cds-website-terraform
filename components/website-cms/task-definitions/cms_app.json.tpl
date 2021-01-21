@@ -7,6 +7,11 @@
         "containerPort": 1337
       }
     ],
-    
+    "environment": [
+      {
+        "name": DATABASE_HOST,
+        "value": "${db_host}"
+      },
+    ]
   }
 ]
