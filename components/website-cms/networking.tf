@@ -88,7 +88,7 @@ resource "aws_route_table_association" "website-cms" {
 
 # Create a new route table for the private subnets, make it route non-local traffic through the NAT gateway to the internet
 resource "aws_route_table" "website-cms-private_subnet" {
-  count  = var.az_count
+  count  = 2
   vpc_id = aws_vpc.main.id
 
   route {
@@ -99,7 +99,7 @@ resource "aws_route_table" "website-cms-private_subnet" {
 
 # Explicitly associate the newly created route tables to the private subnets (so they don't default to the main route table)
 resource "aws_route_table_association" "website-cms-private" {
-  count          = var.az_count
+  count          = 2
   subnet_id      = element(aws_subnet.website-cms-private.*.id, count.index)
   route_table_id = element(aws_route_table.website-cms-private_subnet.*.id, count.index)
 }
