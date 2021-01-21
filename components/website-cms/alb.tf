@@ -2,7 +2,7 @@
 
 resource "aws_alb" "cms-load-balancer" {
   name            = "cms-load-balancer"
-  subnets         = aws_subnet.public.*.id
+  subnets         = aws_subnet.website-cms-public.*.id
   security_groups = [aws_security_group.website-cms-lb.id]
   internal = true
 }
@@ -17,7 +17,7 @@ resource "aws_alb_target_group" "app" {
   health_check {
     healthy_threshold   = "3"
     interval            = "30"
-    protocol            = "HTTP"
+    protocol            = "HTTPS"
     matcher             = "200"
     timeout             = "3"
     path                = var.health_check_path
@@ -29,7 +29,7 @@ resource "aws_alb_target_group" "app" {
 resource "aws_alb_listener" "front_end" {
   load_balancer_arn = aws_alb.cms-load-balancer.id
   port              = var.app_port
-  protocol          = "HTTP"
+  protocol          = "HTTPS"
 
   default_action {
     target_group_arn = aws_alb_target_group.app.id

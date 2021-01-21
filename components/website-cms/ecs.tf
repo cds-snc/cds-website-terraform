@@ -18,4 +18,16 @@ resource "aws_ecs_service" "website-cms-ecs" {
   cluster       = "website-cms-cluster"
   desired_count = 1
   launch_type   = FARGATE
+
+  network_configuration {
+    security_groups  = [aws_security_group.ecs_tasks.id]
+    subnets          = aws_subnet.cms-website-private.*.id
+    assign_public_ip = true
+  }
+
+  load_balancer {
+    target_group_arn = aws_alb_target_group.app.id
+    container_name   = "cds-website-cms"
+    container_port   = var.app_port
+  }
 }

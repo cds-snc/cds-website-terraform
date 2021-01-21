@@ -138,3 +138,19 @@ resource "aws_default_network_acl" "website-cms" {
     CostCenter = var.product_name
   }
 }
+
+###
+# AWS EIP
+###
+
+resource "aws_eip" "website-cms" {	
+  instance   = aws_instance.website-cms.id	
+  depends_on = [aws_internet_gateway.website-cms]	
+
+  vpc = true	
+
+  tags = {	
+    Name       = var.product_name	
+    CostCenter = var.product_name	
+  }	
+}
