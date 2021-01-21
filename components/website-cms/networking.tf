@@ -86,6 +86,24 @@ resource "aws_route_table_association" "website-cms" {
   route_table_id = aws_route_table.website-cms-public_subnet.id
 }
 
+# Create a new route table for the private subnets, make it route non-local traffic through the NAT gateway to the internet
+resource "aws_route_table" "website-cms-private_subnet" {
+  count  = var.az_count
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = element(aws_nat_gateway.gw.*.id, count.index)
+  }
+}
+
+# Explicitly associate the newly created route tables to the private subnets (so they don't default to the main route table)
+resource "aws_route_table_association" "website-cms-private" {
+  count          = var.az_count
+  subnet_id      = element(aws_subnet.website-cms-private.*.id, count.index)
+  route_table_id = element(aws_route_table.website-cms-private_subnet.*.id, count.index)
+}
+
 ###
 # AWS Network ACL
 ###
@@ -144,7 +162,6 @@ resource "aws_default_network_acl" "website-cms" {
 ###
 
 resource "aws_eip" "website-cms" {	
-  instance   = aws_instance.website-cms.id	
   depends_on = [aws_internet_gateway.website-cms]	
 
   vpc = true	
@@ -153,4 +170,10 @@ resource "aws_eip" "website-cms" {
     Name       = var.product_name	
     CostCenter = var.product_name	
   }	
+}
+
+resource "aws_nat_gateway" "gw" {
+  count         = 2
+  subnet_id     = element(aws_subnet.cms-website-public.*.id, count.index)
+  allocation_id = element(aws_eip.website-cms.*.id, count.index)
 }
