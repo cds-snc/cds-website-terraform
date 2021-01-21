@@ -2,11 +2,14 @@ resource "aws_ecs_cluster" "website-cms-cluster" {
   name = "website-cms-cluster"
 }
 
+# Placeholder image
+# real one will be at aws_ecr_repository.image-repository.repository_url
+
 data "template_file" "cms_app" {
   template = file("./task-definitions/cms_app.json.tpl")
 
   vars = {
-    image          = aws_ecr_repository.image-repository.repository_url
+    image          = "busybox"
     fargate_cpu    = var.fargate_cpu
     fargate_memory = var.fargate_memory
     aws_region     = "ca-central-1"
