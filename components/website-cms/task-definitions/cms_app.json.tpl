@@ -11,7 +11,7 @@
       {
         "name": "DATABASE_HOST",
         "value": "${db_host}"
-      },
+      }
     ]
   }
 ]
