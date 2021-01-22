@@ -17,11 +17,22 @@ data "template_file" "cms_app" {
   }
 }
 
+resource "aws_ecs_task_definition" "cds-website-cms" {
+  family                   = "website-cms-task"
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = var.fargate_cpu
+  memory                   = var.fargate_memory
+  container_definitions    = data.template_file.cms_app.rendered
+}
+
 resource "aws_ecs_service" "website-cms-ecs" {
-  name          = "website-cms-ecs"
-  cluster       = "website-cms-cluster"
-  desired_count = 1
-  launch_type   = "FARGATE"
+  name            = "website-cms-ecs"
+  cluster         = "website-cms-cluster"
+  desired_count   = 1
+  launch_type     = "FARGATE"
+  task_definition = aws_ecs_task_definition.cds-website-cms.arn
 
   network_configuration {
     security_groups  = [aws_security_group.ecs_tasks.id]
