@@ -1,4 +1,4 @@
-resource "aws_iam_role" "ecs_task_execution_role" {
+resource "aws_iam_role" "ecs-task-execution-role" {
   name = "ecs_task_execution_role"
 
   assume_role_policy = <<EOF

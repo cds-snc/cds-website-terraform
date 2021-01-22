@@ -19,7 +19,7 @@ data "template_file" "cms_app" {
 
 resource "aws_ecs_task_definition" "cds-website-cms" {
   family                   = "website-cms-task"
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  execution_role_arn       = aws_iam_role.ecs-task-execution-role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu
