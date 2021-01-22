@@ -9,9 +9,9 @@
     ],
     "environment": [
       {
-        "name": DATABASE_HOST,
+        "name": "DATABASE_HOST",
         "value": "${db_host}"
-      },
+      }
     ]
   }
 ]
