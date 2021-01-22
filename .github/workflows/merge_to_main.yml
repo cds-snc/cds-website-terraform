@@ -20,10 +20,6 @@ env:
   TERRAFORM_VERSION: 0.13.5
   TERRAGRUNT_VERSION: v0.26.0
   TF_VAR_rds_cluster_password: ${{ secrets.RDS_CLUSTER_PASSWORD }}
-  TF_VAR_rds_cluster_host: ${{ aws_db_instance.website-cms-database.endpoint }}
-  TF_VAR_rds_db_name: ${{ aws_db_instance.website-cms-database.name }}
-  TF_VAR_rds_db_user: ${{ aws_db_instance.website-cms-database.username }}
-  TF_VAR_rds_db_password: ${{ var.rds_cluster_password }}
 
 jobs:
   terraform-apply:
