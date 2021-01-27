@@ -21,3 +21,8 @@ EOF
     tag-key = "tag-value"
   }
 }
+
+resource "aws_iam_role_policy_attachment" "ecs-task-execution" {
+  role       = aws_iam_role.ecs-task-execution-role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
