@@ -30,6 +30,7 @@ resource "aws_internet_gateway" "website-cms" {
 }
 
 resource "aws_nat_gateway" "gw" {
+  count       = 2
   subnet_id     = aws_subnet.website-cms-public[count.index].id
 
   depends_on = [aws_internet_gateway.website-cms]
