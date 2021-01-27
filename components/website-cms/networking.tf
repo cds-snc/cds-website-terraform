@@ -30,10 +30,10 @@ resource "aws_internet_gateway" "website-cms" {
 }
 
 resource "aws_nat_gateway" "gw" {
-  allocation_id = aws_eip.website-cms.id
-  subnet_id     = aws_subnet.website-cms-public.id
+  subnet_id     = aws_subnet.website-cms-public.id[count.index]
 
   depends_on = [aws_internet_gateway.website-cms]
+  allocation_id = aws_eip.website-cms.*.id[count.index]
 }
 
 ###
