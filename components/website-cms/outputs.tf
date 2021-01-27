@@ -3,5 +3,5 @@ output "db_host" {
 }
 
 output "ip" {
-  value = aws_eip.website-cms[count.id].public_ip
+  value = aws_eip.website-cms[0].public_ip
 }
