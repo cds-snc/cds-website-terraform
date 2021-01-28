@@ -94,6 +94,29 @@ resource "aws_route_table_association" "website-cms" {
   route_table_id = aws_route_table.website-cms-public_subnet.id
 }
 
+resource "aws_route_table" "website-cms-private_subnet" {
+  count = 2
+
+  vpc_id = aws_vpc.website-cms.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.gw.*.id[count.index]
+  }
+
+  tags = {
+    Name       = var.product_name
+    CostCenter = var.product_name
+  }
+}
+
+resource "aws_route_table_association" "website-cms-private" {
+  count = 2
+
+  subnet_id      = aws_subnet.website-cms-private.*.id[count.index]
+  route_table_id = aws_route_table.website-cms-private_subnet.*.id[count.index]
+}
+
 
 ###
 # AWS Network ACL
