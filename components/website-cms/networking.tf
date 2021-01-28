@@ -95,7 +95,7 @@ resource "aws_route_table_association" "website-cms" {
 }
 
 resource "aws_route_table" "website-cms-private_subnet" {
-  count = 3
+  count = 2
 
   vpc_id = aws_vpc.website-cms.id
 
@@ -111,7 +111,7 @@ resource "aws_route_table" "website-cms-private_subnet" {
 }
 
 resource "aws_route_table_association" "website-cms-private" {
-  count = 3
+  count = 2
 
   subnet_id      = aws_subnet.website-cms-private.*.id[count.index]
   route_table_id = aws_route_table.website-cms-private_subnet.*.id[count.index]
