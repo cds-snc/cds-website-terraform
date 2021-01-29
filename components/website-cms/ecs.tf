@@ -9,11 +9,14 @@ data "template_file" "cms_app" {
   template = file("./task-definitions/cms_app.json.tpl")
 
   vars = {
-    image          = aws_ecr_repository.image-repository.repository_url
-    fargate_cpu    = var.fargate_cpu
-    fargate_memory = var.fargate_memory
-    aws_region     = "ca-central-1"
-    db_host        = aws_db_instance.website-cms-database.endpoint
+    image                 = aws_ecr_repository.image-repository.repository_url
+    fargate_cpu           = var.fargate_cpu
+    fargate_memory        = var.fargate_memory
+    aws_region            = "ca-central-1"
+    db_host               = aws_db_instance.website-cms-database.endpoint
+    bucket_name           = var.asset_bucket_name
+    aws_access_key_id     = var.strapi_aws_access_key_id
+    aws_secret_access_key = var.strapi_aws_secret_access_key
   }
 }
 
