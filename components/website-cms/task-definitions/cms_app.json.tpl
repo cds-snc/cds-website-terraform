@@ -32,6 +32,6 @@
         "awslogs-region": "ca-central-1",
         "awslogs-stream-prefix": "ecs-cds-website-cms"
       }
-    },=
+    }
   }
 ]
