@@ -99,5 +99,5 @@ resource "aws_security_group_rule" "website-cms-egress_database" {
   to_port                  = 5432
   protocol                 = "tcp"
   security_group_id        = aws_security_group.website-cms-database.id
-  source_security_group_id = aws_security_group.ecs-tasks.id
+  source_security_group_id = aws_security_group.ecs_tasks.id
 }
