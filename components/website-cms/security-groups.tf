@@ -82,10 +82,22 @@ resource "aws_security_group" "website-cms-database" {
     protocol    = "tcp"
     from_port   = 5432
     to_port     = 5432
-    cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS008
+    security_groups = [
+      aws_security_group.ecs_tasks.id
+    ]
   }
 
   tags = {
     CostCenter = "website-cms"
   }
+}
+
+resource "aws_security_group_rule" "website-cms-egress_database" {
+  description              = "Security group rule for DB egress"
+  type                     = "egress"
+  from_port                = 5432
+  to_port                  = 5432
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.website-cms-database.id
+  source_security_group_id = aws_security_group.ecs-tasks.id
 }
