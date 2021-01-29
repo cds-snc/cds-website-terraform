@@ -18,6 +18,9 @@ env:
   TERRAFORM_VERSION: 0.13.5
   TERRAGRUNT_VERSION: v0.26.0
   TF_VAR_rds_cluster_password: ${{ secrets.RDS_CLUSTER_PASSWORD }}
+  TF_VAR_asset_bucket_name: ${{ secrets.ASSET_BUCKET_NAME }}
+  TF_VAR_strapi_aws_access_key_id: ${{ secrets.STRAPI_AWS_ACCESS_KEY_ID }}
+  TF_VAR_strapi_aws_secret_access_key: ${{ secrets.STRAPI_AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   terraform-plan:
