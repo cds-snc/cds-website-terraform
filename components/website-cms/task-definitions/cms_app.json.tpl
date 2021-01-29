@@ -24,6 +24,14 @@
         "name": "AWS_SECRET_ACCESS_KEY",
         "value": "${aws_secret_access_key}"
       }
-    ]
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${awslogs-group}",
+        "awslogs-region": "ca-central-1",
+        "awslogs-stream-prefix": "ecs-cds-website-cms"
+      }
+    },=
   }
 ]
