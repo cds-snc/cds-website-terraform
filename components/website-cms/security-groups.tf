@@ -72,7 +72,7 @@ resource "aws_security_group" "ecs_tasks" {
 ###
 # AWS RDS Security Group
 ###
-
+# Traffic to the DB should only come from ECS
 resource "aws_security_group" "website-cms-database" {
   name        = "website-cms-database"
   description = "Ingress - RDS instance"
@@ -87,17 +87,14 @@ resource "aws_security_group" "website-cms-database" {
     ]
   }
 
+  egress {
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS009
+  }
+
   tags = {
     CostCenter = "website-cms"
   }
-}
-
-resource "aws_security_group_rule" "website-cms-egress_database" {
-  description              = "Security group rule for DB egress"
-  type                     = "egress"
-  from_port                = 5432
-  to_port                  = 5432
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.ecs_tasks.id
-  source_security_group_id = aws_security_group.website-cms-database.id
 }
