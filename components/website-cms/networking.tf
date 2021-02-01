@@ -101,6 +101,7 @@ resource "aws_route_table" "website-cms-private_subnet" {
 
   route {
     cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.gw.*.id[count.index]
   }
 
   tags = {
