@@ -11,7 +11,6 @@ data "template_file" "cms_app" {
     fargate_memory        = var.fargate_memory
     aws_region            = "ca-central-1"
     awslogs-group         = aws_cloudwatch_log_group.cds-website-cms.name
-    strapi_host           = aws_alb.cms-load-balancer.dns_name
     db_host               = aws_db_instance.website-cms-database.address
     db_user               = "postgres"
     db_password           = var.rds_cluster_password
