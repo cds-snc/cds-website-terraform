@@ -65,7 +65,7 @@ resource "aws_security_group" "ecs_tasks" {
     from_port   = 0
     to_port     = 0
     cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS009
-  } #tfsec:ignore:AWS009 - open Egress
+  }
 }
 
 
@@ -91,7 +91,7 @@ resource "aws_security_group" "website-cms-database" {
     protocol    = "-1"
     from_port   = 0
     to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS009
   }
 
   tags = {
