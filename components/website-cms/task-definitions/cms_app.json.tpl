@@ -9,6 +9,10 @@
     ],
     "environment": [
       {
+        "name": "NODE_ENV",
+        "value": "production"
+      },
+      {
         "name": "DATABASE_HOST",
         "value": "${db_host}"
       },
