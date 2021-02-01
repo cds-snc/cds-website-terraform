@@ -39,7 +39,7 @@ resource "aws_ecs_service" "website-cms-ecs" {
 
   network_configuration {
     security_groups  = [aws_security_group.ecs_tasks.id]
-    subnets          = aws_subnet.website-cms-public.*.id
+    subnets          = aws_subnet.website-cms-private.*.id
     assign_public_ip = true
   }
 
