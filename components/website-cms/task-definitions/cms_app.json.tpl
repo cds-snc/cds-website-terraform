@@ -23,6 +23,14 @@
       {
         "name": "AWS_SECRET_ACCESS_KEY",
         "value": "${aws_secret_access_key}"
+      },
+      {
+        "name": "DATABASE_USERNAME",
+        "value": "${db_user}"
+      },
+      {
+        "name": "DATABASE_PASSWORD",
+        "value": "${db_password}"
       }
     ],
     "logConfiguration": {
