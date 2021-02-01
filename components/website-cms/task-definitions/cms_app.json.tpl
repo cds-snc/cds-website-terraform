@@ -13,6 +13,10 @@
         "value": "production"
       },
       {
+        "name": "HOST",
+        "value": "${strapi_host}"
+      },
+      {
         "name": "DATABASE_HOST",
         "value": "${db_host}"
       },
