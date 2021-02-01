@@ -12,6 +12,8 @@ data "template_file" "cms_app" {
     aws_region            = "ca-central-1"
     awslogs-group         = aws_cloudwatch_log_group.cds-website-cms.name
     db_host               = aws_db_instance.website-cms-database.address
+    db_user               = "postgres"
+    db_password           = var.rds_cluster_password
     bucket_name           = var.asset_bucket_name
     aws_access_key_id     = var.strapi_aws_access_key_id
     aws_secret_access_key = var.strapi_aws_secret_access_key
