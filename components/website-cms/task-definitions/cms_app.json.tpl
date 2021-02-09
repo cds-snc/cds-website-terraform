@@ -38,7 +38,7 @@
       },
       {
         "name": "TOKEN",
-        "value": "${token}
+        "value": "${token}"
       }
     ],
     "logConfiguration": {
