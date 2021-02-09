@@ -17,6 +17,7 @@ data "template_file" "cms_app" {
     bucket_name           = var.asset_bucket_name
     aws_access_key_id     = var.strapi_aws_access_key_id
     aws_secret_access_key = var.strapi_aws_secret_access_key
+    token                 = var.github_token
   }
 }
 

@@ -33,3 +33,7 @@ variable "strapi_aws_access_key_id" {
 variable "strapi_aws_secret_access_key" {
   type = string
 }
+
+variable "github_token" {
+  type = string
+}

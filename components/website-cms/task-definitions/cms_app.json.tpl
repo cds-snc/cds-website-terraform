@@ -35,6 +35,10 @@
       {
         "name": "DATABASE_PASSWORD",
         "value": "${db_password}"
+      },
+      {
+        "name": "TOKEN",
+        "value": "${token}
       }
     ],
     "logConfiguration": {
