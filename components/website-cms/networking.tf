@@ -128,7 +128,7 @@ resource "aws_default_network_acl" "website-cms" {
   ingress {
     protocol   = "tcp"
     rule_no    = 100
-    action     = "allow"
+    action     = "deny"
     cidr_block = "0.0.0.0/0"
     from_port  = 22
     to_port    = 22
