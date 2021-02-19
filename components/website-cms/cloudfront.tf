@@ -14,7 +14,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   enabled         = true
   is_ipv6_enabled = true
-  web_acl_id      = aws_wafv2_web_acl.assets.arn
+  #tfsec:ignore:AWS045 - No WAF
 
   default_cache_behavior {
     path_pattern     = "*"
