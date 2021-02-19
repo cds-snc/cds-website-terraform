@@ -2,7 +2,7 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
   comment = "cloudfront origin access identity"
 }
 
-resource "aws_cloudfront_distribution" "asset_distribution" {
+resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
       domain_name = aws_s3_bucket.website-asset-bucket.bucket_regional_domain_name
       origin_id = local.s3_origin_id
@@ -14,6 +14,7 @@ resource "aws_cloudfront_distribution" "asset_distribution" {
 
   enabled         = true
   is_ipv6_enabled = true
+  web_acl_id      = aws_wafv2_web_acl.assets.arn
 
   default_cache_behavior {
     path_pattern     = "*"
@@ -39,5 +40,6 @@ resource "aws_cloudfront_distribution" "asset_distribution" {
 
   viewer_certificate {
     cloudfront_default_certificate = true
+    minimum_protocol_version = "TLSv1.2_2019"
   }
 }
