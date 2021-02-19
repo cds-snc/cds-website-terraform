@@ -1,3 +1,7 @@
+locals {
+  s3_origin_id = "s3-origin"
+}
+
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
   comment = "cloudfront origin access identity"
 }

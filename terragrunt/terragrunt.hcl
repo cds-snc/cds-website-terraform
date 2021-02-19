@@ -1,7 +1,6 @@
 locals {
   account_id   = "773858180673"
   product_name = "website-cms"
-  s3_origin_id = "s3-origin"
 }
 
 # DO NOT CHANGE ANYTHING BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING
