@@ -41,6 +41,12 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     compress               = true
   }
 
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
   viewer_certificate {
     cloudfront_default_certificate = true
     minimum_protocol_version = "TLSv1.2_2019"
