@@ -21,7 +21,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   #tfsec:ignore:AWS045 - No WAF
 
   default_cache_behavior {
-    path_pattern     = "*"
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = local.s3_origin_id
