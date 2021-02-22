@@ -1,7 +1,5 @@
 resource "aws_s3_bucket" "website-asset-bucket" {
   bucket = "cds-website-assets-prod"
-  #tfsec:ignore:AWS001 - Public read access
-  acl    = "public-read"
 
   tags = {
     Name       = var.product_name
@@ -14,6 +12,28 @@ resource "aws_s3_bucket" "website-asset-bucket" {
       }
     }
   }
-
   #tfsec:ignore:AWS002 - No logging enabled
+}
+
+resource "aws_s3_bucket_policy" "website-asset-bucket" {
+  bucket = aws_s3_bucket.website-asset-bucket.id
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "OnlyCloudfrontReadAccess",
+      "Principal": {
+        "AWS": "${aws_cloudfront_origin_access_identity.origin_access_identity.iam_arn}"
+      },
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": "${aws_s3_bucket.website-asset-bucket.arn}/*"
+    }
+  ]
+}
+POLICY
 }
