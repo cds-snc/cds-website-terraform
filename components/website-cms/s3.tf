@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "website-asset-bucket" {
 }
 
 resource "aws_s3_bucket_policy" "website-asset-bucket" {
-  bucket = aws_s3_bucket.exposure_config.id
+  bucket = aws_s3_bucket.website-asset-bucket.id
 
   policy = <<POLICY
 {
