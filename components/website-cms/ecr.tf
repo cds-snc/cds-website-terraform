@@ -1,5 +1,8 @@
 resource "aws_ecr_repository" "image-repository" {
-  name      = "cds-website/cms"
+  name = "cds-website/cms"
+
+  #tfsec:ignore:AWS078 - no image_tag_mutability attribute
+  #tfsec:ignore:AWS093 - no CMK encryption
 
   image_scanning_configuration {
     scan_on_push = true

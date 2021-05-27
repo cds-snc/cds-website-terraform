@@ -13,6 +13,7 @@ resource "aws_s3_bucket" "website-asset-bucket" {
     }
   }
   #tfsec:ignore:AWS002 - No logging enabled
+  #tfsec:ignore:AWS077 - no versioning
 }
 
 resource "aws_s3_bucket_policy" "website-asset-bucket" {
