@@ -16,7 +16,7 @@ variable "fargate_memory" {
   default     = "2048"
 }
 
-# RDS DB
+# RDS database
 variable "rds_cluster_password" {
   type = string
 }
