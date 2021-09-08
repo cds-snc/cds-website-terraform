@@ -19,7 +19,6 @@ variable "fargate_memory" {
 # RDS database
 variable "rds_cluster_password" {
   type = string
-  sensitive = true
 }
 
 # Env Vars for the container
@@ -35,7 +34,7 @@ variable "strapi_aws_secret_access_key" {
   type = string
 }
 
+# This github token makes a call to run action here https://github.com/cds-snc/cds-website-pr-bot
 variable "github_token" {
   type = string
-  sensitive = true
 }
