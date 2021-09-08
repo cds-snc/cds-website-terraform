@@ -19,6 +19,7 @@ variable "fargate_memory" {
 # RDS database
 variable "rds_cluster_password" {
   type = string
+  sensitive = true
 }
 
 # Env Vars for the container
@@ -36,4 +37,5 @@ variable "strapi_aws_secret_access_key" {
 
 variable "github_token" {
   type = string
+  sensitive = true
 }
