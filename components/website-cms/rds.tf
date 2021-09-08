@@ -18,7 +18,7 @@ resource "aws_db_instance" "website-cms-database" {
   allocated_storage         = 20
   storage_type              = "gp2"
   engine                    = "postgres"
-  engine_version            = "10.15"
+  engine_version            = "10.17"
   identifier                = "strapi"
   instance_class            = "db.t3.micro"
   name                      = "strapi"
