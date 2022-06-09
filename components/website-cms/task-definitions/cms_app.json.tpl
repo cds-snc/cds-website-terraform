@@ -31,15 +31,25 @@
       {
         "name": "DATABASE_USERNAME",
         "value": "${db_user}"
-      },
-      {
-        "name": "DATABASE_PASSWORD",
-        "value": "${db_password}"
-      },
-      {
-        "name": "TOKEN",
-        "value": "${token}"
       }
+    ],
+    "secrets" : [
+      {
+        "name" : "DATABASE_PASSWORD",
+        "valueFrom" : "${db_password_arn}"
+      },
+      {
+        "name" : "TOKEN",
+        "valueFrom" : "${github_token_arn}"
+      },
+      {
+        "name": "AWS_ACCESS_KEY_ID",
+        "valueFrom": "${aws_access_key_id_arn}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY",
+        "valueFrom": "${aws_secret_access_key_arn}"
+      },
     ],
     "logConfiguration": {
       "logDriver": "awslogs",

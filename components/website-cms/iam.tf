@@ -22,7 +22,51 @@ EOF
   }
 }
 
-resource "aws_iam_role_policy_attachment" "ecs-task-execution" {
+resource "aws_iam_role_policy_attachment" "ecs-task-service-role-policy" {
   role       = aws_iam_role.ecs-task-execution-role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs-task-execution" {
+  role       = aws_iam_role.ecs-task-execution-role.name
+  policy_arn = aws_iam_policy.ecs-task-execution.arn
+}
+
+data "aws_iam_policy_document" "ecs-task-execution" {
+  statement {
+
+    effect = "Allow"
+
+    actions = [
+      "ecr:GetAuthorizationToken",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage",
+    ]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+
+    effect = "Allow"
+
+    actions = [
+      "ssm:DescribeParameters",
+      "ssm:GetParameters",
+    ]
+    resources = [
+      aws_ssm_parameter.db_password.arn,
+      aws_ssm_parameter.github_token.arn,
+      aws_ssm_parameter.aws_access_key_id.arn,
+      aws_ssm_parameter.aws_secret_access_key.arn,
+    ]
+  }
+}
+
+resource "aws_iam_policy" "ecs-task-execution" {
+  name   = "WebsiteTaskExecutionPolicies"
+  path   = "/"
+  policy = data.aws_iam_policy_document.ecs-task-execution.json
 }
