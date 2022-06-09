@@ -22,12 +22,12 @@ EOF
   }
 }
 
-resource "aws_iam_role_policy_attachment" "ecs-task-service-role-policy" {
+resource "aws_iam_role_policy_attachment" "ecs-task-execution" {
   role       = aws_iam_role.ecs-task-execution-role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "ecs-task-execution" {
+resource "aws_iam_role_policy_attachment" "ecs-task-execution-policy" {
   role       = aws_iam_role.ecs-task-execution-role.name
   policy_arn = aws_iam_policy.ecs-task-execution.arn
 }
