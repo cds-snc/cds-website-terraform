@@ -1,7 +1,7 @@
 data "aws_caller_identity" "current" {}
 
 resource "aws_kms_key" "cw" {
-  description     = "KMS key 1"
+  description         = "KMS key 1"
   enable_key_rotation = true
 
   policy = <<EOF

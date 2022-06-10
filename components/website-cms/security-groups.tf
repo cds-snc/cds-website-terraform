@@ -27,7 +27,7 @@ resource "aws_security_group" "website-cms-lb" {
     to_port     = var.app_port
     cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS008
   }
-  
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -72,9 +72,9 @@ resource "aws_security_group" "website-cms-database" {
   vpc_id      = aws_vpc.website-cms.id
 
   ingress {
-    protocol    = "tcp"
-    from_port   = 5432
-    to_port     = 5432
+    protocol  = "tcp"
+    from_port = 5432
+    to_port   = 5432
     security_groups = [
       aws_security_group.ecs_tasks.id
     ]

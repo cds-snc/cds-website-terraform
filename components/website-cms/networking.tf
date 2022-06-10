@@ -30,10 +30,10 @@ resource "aws_internet_gateway" "website-cms" {
 }
 
 resource "aws_nat_gateway" "gw" {
-  count       = 2
-  subnet_id     = aws_subnet.website-cms-public[count.index].id
+  count     = 2
+  subnet_id = aws_subnet.website-cms-public[count.index].id
 
-  depends_on = [aws_internet_gateway.website-cms]
+  depends_on    = [aws_internet_gateway.website-cms]
   allocation_id = aws_eip.website-cms.*.id[count.index]
 }
 
@@ -175,14 +175,14 @@ resource "aws_default_network_acl" "website-cms" {
 # AWS EIP
 ###
 
-resource "aws_eip" "website-cms" {	
-  count = 2
-  depends_on = [aws_internet_gateway.website-cms]	
+resource "aws_eip" "website-cms" {
+  count      = 2
+  depends_on = [aws_internet_gateway.website-cms]
 
-  vpc = true	
+  vpc = true
 
-  tags = {	
-    Name       = var.product_name	
-    CostCenter = var.product_name	
-  }	
+  tags = {
+    Name       = var.product_name
+    CostCenter = var.product_name
+  }
 }
