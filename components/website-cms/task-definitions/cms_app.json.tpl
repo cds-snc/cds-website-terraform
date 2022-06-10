@@ -41,6 +41,10 @@
       {
         "name": "AWS_SECRET_ACCESS_KEY",
         "valueFrom": "${aws_secret_access_key_arn}"
+      },
+      {
+        "name": "ADMIN_JWT_SECRET",
+        "valueFrom": "${admin_jwt_secret_arn}"
       }
     ],
     "logConfiguration": {
