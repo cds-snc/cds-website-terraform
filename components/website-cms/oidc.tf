@@ -1,6 +1,7 @@
 locals {
-  plan_name  = "gh_plan_role"
-  admin_name = "gh_admin_role"
+  plan_name   = "gh_plan_role"
+  admin_name  = "gh_admin_role"
+  deploy_name = "gh_deploy_role"
 }
 
 
@@ -19,6 +20,11 @@ module "oidc" {
       name : local.plan_name,
       repo_name : "cds-website-terraform"
       claim : "*"
+    },
+    {
+      name : local.deploy_name,
+      repo_name : "cds-website-cms"
+      claim : "ref:refs/heads/main"
     }
   ]
 }
@@ -52,4 +58,22 @@ data "aws_iam_policy" "admin" {
 resource "aws_iam_role_policy_attachment" "admin" {
   role       = local.admin_name
   policy_arn = data.aws_iam_policy.admin.arn
+}
+
+data "aws_iam_policy" "ecs" {
+  name = "AmazonECS_FullAccess"
+}
+
+data "aws_iam_policy" "ecr" {
+  name = "AmazonEC2ContainerRegistryFullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "deploy_ecs" {
+  role       = local.deploy_name
+  policy_arn = data.aws_iam_policy.ecs.arn
+}
+
+resource "aws_iam_role_policy_attachment" "deploy_ecr" {
+  role       = local.deploy_name
+  policy_arn = data.aws_iam_policy.ecr.arn
 }

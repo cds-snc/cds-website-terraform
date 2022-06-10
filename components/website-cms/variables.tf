@@ -41,6 +41,12 @@ variable "strapi_aws_secret_access_key" {
   type        = string
 }
 
+variable "strapi_admin_jwt_secret" {
+  description = "Strapi Admin JWT Secret"
+  sensitive   = true
+  type        = string
+}
+
 # This github token makes a call to run action here https://github.com/cds-snc/cds-website-pr-bot
 variable "github_token" {
   description = "Github token"

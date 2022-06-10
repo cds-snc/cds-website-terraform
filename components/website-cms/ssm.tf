@@ -21,3 +21,9 @@ resource "aws_ssm_parameter" "aws_secret_access_key" {
   type  = "SecureString"
   value = var.strapi_aws_secret_access_key
 }
+
+resource "aws_ssm_parameter" "admin_jwt_secret" {
+  name  = "/website/admin_jwt_secret"
+  type  = "SecureString"
+  value = var.strapi_admin_jwt_secret
+}
