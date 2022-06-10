@@ -49,7 +49,7 @@
       {
         "name": "AWS_SECRET_ACCESS_KEY",
         "valueFrom": "${aws_secret_access_key_arn}"
-      },
+      }
     ],
     "logConfiguration": {
       "logDriver": "awslogs",
