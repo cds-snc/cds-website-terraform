@@ -69,11 +69,11 @@ data "aws_iam_policy" "ecr" {
 }
 
 resource "aws_iam_role_policy_attachment" "deploy_ecs" {
-  role       = local.admin_name
+  role       = local.deploy_name
   policy_arn = data.aws_iam_policy.ecs.arn
 }
 
 resource "aws_iam_role_policy_attachment" "deploy_ecr" {
-  role       = local.admin_name
+  role       = local.deploy_name
   policy_arn = data.aws_iam_policy.ecr.arn
 }
