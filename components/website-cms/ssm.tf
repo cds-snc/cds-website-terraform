@@ -17,7 +17,7 @@ resource "aws_ssm_parameter" "aws_access_key_id" {
 }
 
 resource "aws_ssm_parameter" "aws_secret_access_key" {
-  name  = "/website/aws_access_key_id"
+  name  = "/website/aws_secret_access_key"
   type  = "SecureString"
   value = var.strapi_aws_secret_access_key
 }
