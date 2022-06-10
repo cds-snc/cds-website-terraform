@@ -39,12 +39,17 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-policy" {
 
 data "aws_iam_policy_document" "ecs-task-execution" {
   statement {
-
     effect = "Allow"
-
     actions = [
-      "ssm:DescribeParameters",
-      "ssm:GetParameters",
+      "ssm:DescribeParameters"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "ssm:GetParameters"
     ]
     resources = [
       aws_ssm_parameter.db_password.arn,
