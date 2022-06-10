@@ -28,7 +28,7 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution" {
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_container_registery_policies" {
-  role       = aws_iam_role.cartography_task_execution_role.name
+  role       = aws_iam_role.ecs-task-execution-role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
