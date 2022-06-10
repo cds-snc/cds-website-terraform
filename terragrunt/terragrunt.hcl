@@ -15,16 +15,23 @@ generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite"
   contents  = <<EOF
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.74.0"
+    }
+  }
+}
+
 provider "aws" {
   region              = var.region
-  version             = "~> 2.0"
   allowed_account_ids = [var.account_id]
 }
 
 provider "aws" {
   alias               = "us-east-1"
   region              = "us-east-1"
-  version             = "~> 2.0"
   allowed_account_ids = [var.account_id]
 }
 EOF
@@ -34,17 +41,17 @@ generate "common_variables" {
   path      = "common_variables.tf"
   if_exists = "overwrite"
   contents  = <<EOF
-variable account_id {
+variable "account_id" {
   description = "(Required) The account ID to perform actions on."
   type        = string
 }
 
-variable product_name {
+variable "product_name" {
   description = "(Required) The name of the product you are deploying."
   type        = string
 }
 
-variable region {
+variable "region" {
   description = "The current AWS region"
   type        = string
 }

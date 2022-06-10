@@ -7,24 +7,25 @@ data "template_file" "cms_app" {
   template = file("./task-definitions/cms_app.json.tpl")
 
   vars = {
-    image                 = aws_ecr_repository.image-repository.repository_url
-    fargate_cpu           = var.fargate_cpu
-    fargate_memory        = var.fargate_memory
-    aws_region            = "ca-central-1"
-    awslogs-group         = aws_cloudwatch_log_group.cds-website-cms.name
-    db_host               = aws_db_instance.website-cms-database.address
-    db_user               = "postgres"
-    db_password           = var.rds_cluster_password
-    bucket_name           = var.asset_bucket_name
-    aws_access_key_id     = var.strapi_aws_access_key_id
-    aws_secret_access_key = var.strapi_aws_secret_access_key
-    token                 = var.github_token
+    image                     = aws_ecr_repository.image-repository.repository_url
+    fargate_cpu               = var.fargate_cpu
+    fargate_memory            = var.fargate_memory
+    aws_region                = "ca-central-1"
+    awslogs-group             = aws_cloudwatch_log_group.cds-website-cms.name
+    db_host                   = aws_db_instance.website-cms-database.address
+    db_user                   = "postgres"
+    db_password_arn           = aws_ssm_parameter.db_password.arn
+    bucket_name               = var.asset_bucket_name
+    aws_access_key_id_arn     = aws_ssm_parameter.aws_access_key_id.arn
+    aws_secret_access_key_arn = aws_ssm_parameter.aws_secret_access_key.arn
+    github_token_arn          = aws_ssm_parameter.github_token.arn
   }
 }
 
 resource "aws_ecs_task_definition" "cds-website-cms" {
   family                   = "website-cms-task"
   execution_role_arn       = aws_iam_role.ecs-task-execution-role.arn
+  task_role_arn            = aws_iam_role.task_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu

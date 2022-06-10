@@ -17,8 +17,11 @@ variable "fargate_memory" {
 }
 
 # RDS database
+# The password for the database can include any printable ASCII character except /, ", @, or a space
 variable "rds_cluster_password" {
-  type = string
+  description = "RDS cluster password"
+  sensitive   = true
+  type        = string
 }
 
 # Env Vars for the container
@@ -27,14 +30,20 @@ variable "asset_bucket_name" {
 }
 
 variable "strapi_aws_access_key_id" {
-  type = string
+  description = "AWS Access Key ID"
+  sensitive   = true
+  type        = string
 }
 
 variable "strapi_aws_secret_access_key" {
-  type = string
+  description = "AWS Secret Access Key"
+  sensitive   = true
+  type        = string
 }
 
 # This github token makes a call to run action here https://github.com/cds-snc/cds-website-pr-bot
 variable "github_token" {
-  type = string
+  description = "Github token"
+  sensitive   = true
+  type        = string
 }

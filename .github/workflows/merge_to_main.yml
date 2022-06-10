@@ -18,12 +18,13 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: ca-central-1
   TERRAFORM_VERSION: 1.0.3
-  TERRAGRUNT_VERSION: v0.31.1
+  TERRAGRUNT_VERSION: 0.31.1
   TF_VAR_rds_cluster_password: ${{ secrets.RDS_CLUSTER_PASSWORD }}
   TF_VAR_asset_bucket_name: ${{ secrets.ASSET_BUCKET_NAME }}
   TF_VAR_strapi_aws_access_key_id: ${{ secrets.STRAPI_AWS_ACCESS_KEY_ID }}
   TF_VAR_strapi_aws_secret_access_key: ${{ secrets.STRAPI_AWS_SECRET_ACCESS_KEY }}
   TF_VAR_github_token: ${{ secrets.TOKEN }}
+  TF_INPUT: false
 
 jobs:
   terraform-apply:
@@ -33,38 +34,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1.2.1
+      - name: Setup Terraform tools
+        uses: cds-snc/terraform-tools-setup@v1
+
+      - uses: dorny/paths-filter@b2feaf19c27470162a626bd6fa8438ae5b263721 # v2.10.2
+        id: filter
         with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
-          terraform_wrapper: false
+          filters: |
+            common:
+              - '.github/workflows/merge_to_main.yml'
+              - 'terragrunt/terragrunt.hcl'
+            website-cms:
+              - 'components/website-cms/**'
+              - 'terragrunt/website-cms/**'
 
-      - name: Setup Terragrunt
-        run: |
-          mkdir bin
-          wget -O bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/$TERRAGRUNT_VERSION/terragrunt_linux_amd64
-          chmod +x bin/terragrunt
-          echo "bin" >> $GITHUB_PATH
-
-      - name: Get changed files
-        id: changed-files
-        uses: jitterbit/get-changed-files@v1
-        with:
-          format: 'json'
-
-      - name: Get touched Terragrunt modules
-        run: |
-          MODULES=`echo '${{ steps.changed-files.outputs.all }}' | jq -c '[.[] | match("(.*components?)\/(.*)\/").captures[1].string] | unique | select(length > 0)'`
-          echo "MODULES=$MODULES" >> $GITHUB_ENV
-
-      - name: Get touched Terragrunt configurations
-        run: |
-          CONFIGS=`echo '${{ steps.changed-files.outputs.all }}' | jq -c '[.[] | match("(.*terragrunt?)\/(.*)\/").captures[1].string] | unique | select(length > 0)'`
-          echo "CONFIGS=$CONFIGS" >> $GITHUB_ENV
-
-      - name: Apply website-cms
-        if: contains(env.MODULES, 'website-cms') || contains(env.CONFIGS, 'website-cms')
-        run: |
-          cd terragrunt/website-cms
-          ../../bin/terragrunt apply --terragrunt-non-interactive -auto-approve
+      - name: Terraform apply website-cms
+        if: steps.filter.outputs.website-cms == 'true' || steps.filter.outputs.common == 'true'
+        working-directory: terragrunt/website-cms
+        run: terragrunt apply -auto-approve
 
