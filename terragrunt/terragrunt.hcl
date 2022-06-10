@@ -34,17 +34,17 @@ generate "common_variables" {
   path      = "common_variables.tf"
   if_exists = "overwrite"
   contents  = <<EOF
-variable account_id {
+variable "account_id" {
   description = "(Required) The account ID to perform actions on."
   type        = string
 }
 
-variable product_name {
+variable "product_name" {
   description = "(Required) The name of the product you are deploying."
   type        = string
 }
 
-variable region {
+variable "region" {
   description = "The current AWS region"
   type        = string
 }
