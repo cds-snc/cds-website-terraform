@@ -21,6 +21,7 @@ env:
   TF_VAR_asset_bucket_name: ${{ secrets.ASSET_BUCKET_NAME }}
   TF_VAR_strapi_aws_access_key_id: ${{ secrets.STRAPI_AWS_ACCESS_KEY_ID }}
   TF_VAR_strapi_aws_secret_access_key: ${{ secrets.STRAPI_AWS_SECRET_ACCESS_KEY }}
+  TF_VAR_strapi_admin_jwt_secret: ${{ secrets.STRAPI_ADMIN_JWT_SECRET }}
   TF_VAR_github_token: ${{ secrets.TOKEN }}
   TF_INPUT: false
 
