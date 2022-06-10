@@ -19,6 +19,16 @@ module "oidc" {
       name : local.plan_name,
       repo_name : "cds-website-terraform"
       claim : "*"
+    },
+    {
+      name : local.admin_name,
+      repo_name : "cds-website-cms"
+      claim : "ref:refs/heads/main"
+    },
+    {
+      name : local.plan_name,
+      repo_name : "cds-website-cms"
+      claim : "*"
     }
   ]
 }
