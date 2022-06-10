@@ -65,4 +65,3 @@ jobs:
         if: steps.filter.outputs.website-cms == 'true' || steps.filter.outputs.common == 'true'
         working-directory: terragrunt/website-cms
         run: terragrunt apply -auto-approve
-
