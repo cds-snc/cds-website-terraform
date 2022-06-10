@@ -23,15 +23,9 @@ module "oidc" {
   ]
 }
 
-
-## Policy required for running TF Plans ReadOnly is needed along with some other policies.
-data "aws_iam_policy" "readonly" {
-  name = "ReadOnlyAccess"
-}
-
 resource "aws_iam_role_policy_attachment" "readonly" {
   role       = local.plan_name
-  policy_arn = data.aws_iam_policy.readonly.arn
+  policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
 ## Gives the plan role access to all secrets in the repo this is needed since ReadOnly doesn't provide that access
@@ -47,11 +41,7 @@ module "attach_tf_plan_policy" {
   billing_tag_value = var.product_name
 }
 
-data "aws_iam_policy" "admin" {
-  name = "AdministratorAccess"
-}
-
 resource "aws_iam_role_policy_attachment" "admin" {
   role       = local.admin_name
-  policy_arn = data.aws_iam_policy.admin.arn
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
