@@ -24,7 +24,7 @@ resource "aws_db_instance" "website-cms-database" {
   name                      = "strapi"
   final_snapshot_identifier = "strapi-${random_string.random.result}"
   username                  = "postgres"
-  password                  = var.rds_cluster_password
+  password                  = aws_ssm_parameter.db_password.value
   backup_retention_period   = 7
   backup_window             = "07:00-09:00"
   db_subnet_group_name      = aws_db_subnet_group.website-cms.name
