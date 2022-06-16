@@ -35,14 +35,6 @@
         "valueFrom" : "${github_token_arn}"
       },
       {
-        "name": "AWS_ACCESS_KEY_ID",
-        "valueFrom": "${aws_access_key_id_arn}"
-      },
-      {
-        "name": "AWS_SECRET_ACCESS_KEY",
-        "valueFrom": "${aws_secret_access_key_arn}"
-      },
-      {
         "name": "ADMIN_JWT_SECRET",
         "valueFrom": "${admin_jwt_secret_arn}"
       }

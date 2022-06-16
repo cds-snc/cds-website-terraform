@@ -29,18 +29,6 @@ variable "asset_bucket_name" {
   type = string
 }
 
-variable "strapi_aws_access_key_id" {
-  description = "AWS Access Key ID"
-  sensitive   = true
-  type        = string
-}
-
-variable "strapi_aws_secret_access_key" {
-  description = "AWS Secret Access Key"
-  sensitive   = true
-  type        = string
-}
-
 variable "strapi_admin_jwt_secret" {
   description = "Strapi Admin JWT Secret"
   sensitive   = true

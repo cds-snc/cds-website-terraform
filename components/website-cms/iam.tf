@@ -54,8 +54,6 @@ data "aws_iam_policy_document" "ecs-task-execution" {
     resources = [
       aws_ssm_parameter.db_password.arn,
       aws_ssm_parameter.github_token.arn,
-      aws_ssm_parameter.aws_access_key_id.arn,
-      aws_ssm_parameter.aws_secret_access_key.arn,
       aws_ssm_parameter.admin_jwt_secret.arn,
     ]
   }
