@@ -16,8 +16,6 @@ data "template_file" "cms_app" {
     db_user                   = "postgres"
     db_password_arn           = aws_ssm_parameter.db_password.arn
     bucket_name               = var.asset_bucket_name
-    aws_access_key_id_arn     = aws_ssm_parameter.aws_access_key_id.arn
-    aws_secret_access_key_arn = aws_ssm_parameter.aws_secret_access_key.arn
     github_token_arn          = aws_ssm_parameter.github_token.arn
     admin_jwt_secret_arn      = aws_ssm_parameter.admin_jwt_secret.arn
   }
