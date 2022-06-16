@@ -7,17 +7,17 @@ data "template_file" "cms_app" {
   template = file("./task-definitions/cms_app.json.tpl")
 
   vars = {
-    image                     = aws_ecr_repository.image-repository.repository_url
-    fargate_cpu               = var.fargate_cpu
-    fargate_memory            = var.fargate_memory
-    aws_region                = "ca-central-1"
-    awslogs-group             = aws_cloudwatch_log_group.cds-website-cms.name
-    db_host                   = aws_db_instance.website-cms-database.address
-    db_user                   = "postgres"
-    db_password_arn           = aws_ssm_parameter.db_password.arn
-    bucket_name               = var.asset_bucket_name
-    github_token_arn          = aws_ssm_parameter.github_token.arn
-    admin_jwt_secret_arn      = aws_ssm_parameter.admin_jwt_secret.arn
+    image                = aws_ecr_repository.image-repository.repository_url
+    fargate_cpu          = var.fargate_cpu
+    fargate_memory       = var.fargate_memory
+    aws_region           = "ca-central-1"
+    awslogs-group        = aws_cloudwatch_log_group.cds-website-cms.name
+    db_host              = aws_db_instance.website-cms-database.address
+    db_user              = "postgres"
+    db_password_arn      = aws_ssm_parameter.db_password.arn
+    bucket_name          = var.asset_bucket_name
+    github_token_arn     = aws_ssm_parameter.github_token.arn
+    admin_jwt_secret_arn = aws_ssm_parameter.admin_jwt_secret.arn
   }
 }
 
