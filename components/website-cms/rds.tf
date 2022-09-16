@@ -28,6 +28,7 @@ resource "aws_db_instance" "website-cms-database" {
   backup_retention_period   = 7
   backup_window             = "07:00-09:00"
   db_subnet_group_name      = aws_db_subnet_group.website-cms.name
+  allow_major_version_upgrade = true
 
   # Ignore TFSEC rule as we are using managed KMS
   storage_encrypted = true #tfsec:ignore:AWS051
