@@ -64,3 +64,9 @@ jobs:
         if: steps.filter.outputs.website-cms == 'true' || steps.filter.outputs.common == 'true'
         working-directory: terragrunt/website-cms
         run: terragrunt apply -auto-approve
+
+      - name: Slack message on failure
+        if: ${{ failure() }}
+        run: |
+          json='{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":":red: Terraform apply failed: <https://github.com/cds-snc/cds-website-terraform/actions/workflows/merge_to_main.yml|Merge to main>"}}]}'
+          curl -X POST -H 'Content-type: application/json' --data "$json" ${{ secrets.SLACK_WEBHOOK }}  

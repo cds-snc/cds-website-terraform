@@ -15,19 +15,20 @@ resource "aws_db_subnet_group" "website-cms" {
 }
 
 resource "aws_db_instance" "website-cms-database" {
-  allocated_storage         = 20
-  storage_type              = "gp2"
-  engine                    = "postgres"
-  engine_version            = "14.4"
-  identifier                = "strapi"
-  instance_class            = "db.t3.micro"
-  name                      = "strapi"
-  final_snapshot_identifier = "strapi-${random_string.random.result}"
-  username                  = "postgres"
-  password                  = aws_ssm_parameter.db_password.value
-  backup_retention_period   = 7
-  backup_window             = "07:00-09:00"
-  db_subnet_group_name      = aws_db_subnet_group.website-cms.name
+  allocated_storage           = 20
+  storage_type                = "gp2"
+  engine                      = "postgres"
+  engine_version              = "14.4"
+  identifier                  = "strapi"
+  instance_class              = "db.t3.micro"
+  name                        = "strapi"
+  final_snapshot_identifier   = "strapi-${random_string.random.result}"
+  username                    = "postgres"
+  password                    = aws_ssm_parameter.db_password.value
+  backup_retention_period     = 7
+  backup_window               = "07:00-09:00"
+  db_subnet_group_name        = aws_db_subnet_group.website-cms.name
+  allow_major_version_upgrade = true
 
   # Ignore TFSEC rule as we are using managed KMS
   storage_encrypted = true #tfsec:ignore:AWS051

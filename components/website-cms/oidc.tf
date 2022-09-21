@@ -9,7 +9,7 @@ module "oidc" {
   source            = "github.com/cds-snc/terraform-modules?ref=v2.0.1//gh_oidc_role"
   billing_tag_key   = "CostCentre"
   billing_tag_value = var.product_name
-  oidc_exists       = false
+  oidc_exists       = true
   roles = [
     {
       name : local.admin_name,
