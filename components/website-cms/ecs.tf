@@ -40,8 +40,8 @@ resource "aws_ecs_service" "website-cms-ecs" {
   task_definition = aws_ecs_task_definition.cds-website-cms.arn
 
   network_configuration {
-    security_groups  = [aws_security_group.ecs_tasks.id]
-    subnets          = aws_subnet.website-cms-private.*.id
+    security_groups = [aws_security_group.ecs_tasks.id]
+    subnets         = aws_subnet.website-cms-private.*.id
   }
 
   load_balancer {
