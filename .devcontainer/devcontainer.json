@@ -6,9 +6,9 @@
     "aws-cli": "latest",
 
     "terraform": {
-      "version": "1.0.3",
+      "version": "1.6.1",
       "tflint": "none",
-      "terragrunt": "0.31.1"
+      "terragrunt": "0.52.2"
     }
   },
 
