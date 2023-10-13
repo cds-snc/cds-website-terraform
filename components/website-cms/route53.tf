@@ -14,8 +14,8 @@ resource "aws_route53_record" "strapi_A" {
   type    = "A"
 
   alias {
-    name                   = aws_lb.cms-load-balancer.dns_name
-    zone_id                = aws_lb.cms-load-balancer.zone_id
+    name                   = aws_alb.cms-load-balancer.dns_name
+    zone_id                = aws_alb.cms-load-balancer.zone_id
     evaluate_target_health = false
   }
 }
