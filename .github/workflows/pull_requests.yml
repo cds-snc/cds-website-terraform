@@ -60,7 +60,7 @@ jobs:
 
       - name: Terragrunt plan website-cms
         if: steps.filter.outputs.website-cms == 'true' || steps.filter.outputs.common == 'true'
-        uses: cds-snc/terraform-plan@v2
+        uses: cds-snc/terraform-plan@v3
         with:
           directory: "terragrunt/website-cms"
           comment-delete: "true"
