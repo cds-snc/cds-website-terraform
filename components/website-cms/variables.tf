@@ -2,6 +2,21 @@ variable "app_port" {
   default = 1337
 }
 
+variable "billing_tag_key" {
+  type        = string
+  description = "Billing tag name to apply to resources"
+}
+
+variable "billing_tag_value" {
+  type        = string
+  description = "Billing tag value to apply to resources"
+}
+
+variable "domain_name" {
+  type        = string
+  description = "Domain name of the Strapi instance"
+}
+
 variable "health_check_path" {
   default = "/"
 }
