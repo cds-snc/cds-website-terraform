@@ -19,3 +19,8 @@ resource "aws_route53_record" "strapi_A" {
     evaluate_target_health = false
   }
 }
+
+import {
+  to = aws_route53_record.strapi_A
+  id = "${aws_route53_zone.strapi.zone_id}_${var.domain_name}_A"
+}
