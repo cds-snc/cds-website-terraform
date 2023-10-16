@@ -1,6 +1,10 @@
 resource "aws_ecs_cluster" "website-cms-cluster" {
   name = "website-cms-cluster"
-  #tfsec:ignore:AWS090 - no container insights
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
 }
 
 data "template_file" "cms_app" {
