@@ -38,3 +38,12 @@ resource "aws_s3_bucket_policy" "website-asset-bucket" {
 }
 POLICY
 }
+
+resource "aws_s3_bucket_public_access_block" "website-asset-bucket" {
+  bucket = aws_s3_bucket.website-asset-bucket.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
