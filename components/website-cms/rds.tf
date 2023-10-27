@@ -27,12 +27,13 @@ resource "aws_db_instance" "website-cms-database" {
   password                    = aws_ssm_parameter.db_password.value
   backup_retention_period     = 7
   backup_window               = "07:00-09:00"
+  copy_tags_to_snapshot       = true
   db_subnet_group_name        = aws_db_subnet_group.website-cms.name
   allow_major_version_upgrade = true
+  deletion_protection         = true
 
   # Ignore TFSEC rule as we are using managed KMS
   storage_encrypted = true #tfsec:ignore:AWS051
-
 
   vpc_security_group_ids = [
     aws_security_group.website-cms-database.id
