@@ -50,7 +50,7 @@ resource "aws_security_group" "ecs_tasks" {
 
   tags = {
     CostCenter = "website-cms"
-  }  
+  }
 }
 
 resource "aws_security_group_rule" "ecs_ingress_lb" {
