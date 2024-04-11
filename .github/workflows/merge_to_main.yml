@@ -20,7 +20,6 @@ env:
   TF_VAR_rds_cluster_password: ${{ secrets.RDS_CLUSTER_PASSWORD }}
   TF_VAR_asset_bucket_name: ${{ secrets.ASSET_BUCKET_NAME }}
   TF_VAR_strapi_admin_jwt_secret: ${{ secrets.STRAPI_ADMIN_JWT_SECRET }}
-  TF_VAR_strapi_api_token_salt: ${{ secrets.STRAPI_API_TOKEN_SALT }}
   TF_VAR_github_token: ${{ secrets.TOKEN }}
   TF_INPUT: false
 
