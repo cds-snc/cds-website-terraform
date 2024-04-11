@@ -17,7 +17,7 @@ resource "aws_ssm_parameter" "admin_jwt_secret" {
 }
 
 resource "aws_ssm_parameter" "api_token_salt" {
-  name = "/website/api_token_salt"
-  type = "SecureString"
+  name  = "/website/api_token_salt"
+  type  = "SecureString"
   value = var.strapi_api_token_salt
 }
