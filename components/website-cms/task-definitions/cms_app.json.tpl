@@ -37,6 +37,10 @@
       {
         "name": "ADMIN_JWT_SECRET",
         "valueFrom": "${admin_jwt_secret_arn}"
+      },
+      {
+        "name": "API_TOKEN_SALE",
+        "valueFrom": "${api_token_salt_arn}"
       }
     ],
     "logConfiguration": {

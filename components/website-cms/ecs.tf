@@ -22,6 +22,7 @@ data "template_file" "cms_app" {
     bucket_name          = var.asset_bucket_name
     github_token_arn     = aws_ssm_parameter.github_token.arn
     admin_jwt_secret_arn = aws_ssm_parameter.admin_jwt_secret.arn
+    api_token_salt_arn   = aws_ssm_parameter.api_token_salt.arn
   }
 }
 
