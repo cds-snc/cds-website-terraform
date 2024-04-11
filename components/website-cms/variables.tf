@@ -50,6 +50,12 @@ variable "strapi_admin_jwt_secret" {
   type        = string
 }
 
+variable "strapi_api_token_salt" {
+  description = "Strapi API Token Salt"
+  sensitive   = true
+  type        = string
+}
+
 # This github token makes a call to run action here https://github.com/cds-snc/cds-website-pr-bot
 variable "github_token" {
   description = "Github token"
