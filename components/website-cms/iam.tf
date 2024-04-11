@@ -55,6 +55,7 @@ data "aws_iam_policy_document" "ecs-task-execution" {
       aws_ssm_parameter.db_password.arn,
       aws_ssm_parameter.github_token.arn,
       aws_ssm_parameter.admin_jwt_secret.arn,
+      aws_ssm_parameter.api_token_salt
     ]
   }
 }
