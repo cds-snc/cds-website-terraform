@@ -1,6 +1,6 @@
 {
   "name": "cds-website-terraform",
-  "image": "mcr.microsoft.com/vscode/devcontainers/base:buster",
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:buster@sha256:972d339a267d89835d7a7638f5bf75498a1b30f5e0075591bdc8aff3440cc57d",
 
   "features": {
     "aws-cli": "latest",
