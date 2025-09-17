@@ -8,5 +8,5 @@ metadata:
 spec:
   type: website
   lifecycle: production
-  owner: group:cds-snc/website-devs
+  owner: group:cds-snc/website-team-equipe-du-site-web
   system: cds-website
