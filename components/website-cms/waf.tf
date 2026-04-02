@@ -150,20 +150,8 @@ resource "aws_kinesis_firehose_delivery_stream" "waf_logs" {
 }
 
 resource "aws_iam_role" "waf_logs" {
-  name = "cms-waf-logs-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "firehose.amazonaws.com"
-        }
-      }
-    ]
-  })
+  name               = "cms-waf-logs"
+  assume_role_policy = data.aws_iam_policy_document.waf_logs_assume.json
 
   tags = {
     Name       = "${var.product_name}-waf-logs-role"
@@ -172,27 +160,37 @@ resource "aws_iam_role" "waf_logs" {
 }
 
 resource "aws_iam_role_policy" "waf_logs" {
-  name = "waf-logs-policy"
-  role = aws_iam_role.waf_logs.id
+  name   = "cms-waf-logs"
+  role   = aws_iam_role.waf_logs.id
+  policy = data.aws_iam_policy_document.waf_logs.json
+}
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "s3:AbortMultipartUpload",
-          "s3:GetBucketLocation",
-          "s3:GetObject",
-          "s3:ListBucket",
-          "s3:ListBucketMultipartUploads",
-          "s3:PutObject"
-        ]
-        Resource = [
-          "arn:aws:s3:::${var.cbs_satellite_bucket_name}",
-          "arn:aws:s3:::${var.cbs_satellite_bucket_name}/*"
-        ]
-      }
+data "aws_iam_policy_document" "waf_logs_assume" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["firehose.amazonaws.com"]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "waf_logs" {
+  statement {
+    effect = "Allow"
+    
+    actions = [
+      "s3:AbortMultipartUpload",
+      "s3:GetBucketLocation",
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:ListBucketMultipartUploads",
+      "s3:PutObject"
     ]
-  })
+    
+    resources = [
+      "arn:aws:s3:::${var.cbs_satellite_bucket_name}",
+      "arn:aws:s3:::${var.cbs_satellite_bucket_name}/*"
+    ]
+  }
 }

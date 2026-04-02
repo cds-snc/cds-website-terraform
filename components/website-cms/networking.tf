@@ -186,7 +186,7 @@ resource "aws_eip" "website-cms" {
     CostCenter = var.product_name
   }
 }
-resource "aws_flow_log" "vpc" {
+resource "aws_flow_log" "cloud_based_sensor" {
   log_destination      = "arn:aws:s3:::${var.cbs_satellite_bucket_name}/vpc_flow_logs/"
   log_destination_type = "s3"
   traffic_type         = "ALL"
