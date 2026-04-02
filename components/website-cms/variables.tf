@@ -62,12 +62,6 @@ variable "github_token" {
   sensitive   = true
   type        = string
 }
-
-variable "product_name" {
-  type        = string
-  description = "Website CMS infrastructure name"
-  default     = "website-cms"
-}
 variable "cbs_satellite_bucket_name" {
   description = "The Cloud Based Sensor bucket name"
   type        = string
