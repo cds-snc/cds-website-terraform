@@ -11,7 +11,7 @@ resource "aws_alb" "cms-load-balancer" {
 
   access_logs {
     bucket  = var.cbs_satellite_bucket_name
-    prefix  = "alb_logs"
+    prefix  = "lb_logs"
     enabled = true
   }
 
