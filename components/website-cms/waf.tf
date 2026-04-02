@@ -178,7 +178,7 @@ data "aws_iam_policy_document" "waf_logs_assume" {
 data "aws_iam_policy_document" "waf_logs" {
   statement {
     effect = "Allow"
-    
+
     actions = [
       "s3:AbortMultipartUpload",
       "s3:GetBucketLocation",
@@ -187,7 +187,7 @@ data "aws_iam_policy_document" "waf_logs" {
       "s3:ListBucketMultipartUploads",
       "s3:PutObject"
     ]
-    
+
     resources = [
       "arn:aws:s3:::${var.cbs_satellite_bucket_name}",
       "arn:aws:s3:::${var.cbs_satellite_bucket_name}/*"
