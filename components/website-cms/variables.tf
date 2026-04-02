@@ -65,7 +65,7 @@ variable "github_token" {
 
 variable "product_name" {
   type        = string
-  description = "Name of the product/service"
+  description = "Website CMS infrastructure name"
   default     = "website-cms"
 }
 variable "cbs_satellite_bucket_name" {
