@@ -62,3 +62,9 @@ variable "github_token" {
   sensitive   = true
   type        = string
 }
+
+variable "product_name" {
+  type        = string
+  description = "Name of the product/service"
+  default     = "website-cms"
+}
