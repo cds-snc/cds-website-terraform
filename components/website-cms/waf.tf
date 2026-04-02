@@ -67,10 +67,7 @@ resource "aws_wafv2_web_acl" "cms" {
         vendor_name = "AWS"
 
         # Exclude problematic rules if needed
-        rule_action_override {
-          action_to_use {
-            allow {}
-          }
+        excluded_rule {
           name = "EC2MetaDataSSRF_BODY"
         }
       }
