@@ -83,7 +83,6 @@ resource "aws_wafv2_web_acl" "cms" {
     }
   }
 
-  # AWS Managed Rules - Known Bad Inputs
   rule {
     name     = "AWSManagedRulesKnownBadInputsRuleSet"
     priority = 3
@@ -118,7 +117,6 @@ resource "aws_wafv2_web_acl" "cms" {
   }
 }
 
-# Associate WAF with ALB
 resource "aws_wafv2_web_acl_association" "cms_alb" {
   resource_arn = aws_alb.cms-load-balancer.arn
   web_acl_arn  = aws_wafv2_web_acl.cms.arn
@@ -130,7 +128,6 @@ resource "aws_wafv2_web_acl_logging_configuration" "cms" {
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.waf_logs.arn]
 }
 
-# Kinesis Firehose for WAF logs
 resource "aws_kinesis_firehose_delivery_stream" "waf_logs" {
   name        = "aws-waf-logs-cms"
   destination = "extended_s3"
@@ -142,7 +139,7 @@ resource "aws_kinesis_firehose_delivery_stream" "waf_logs" {
   extended_s3_configuration {
     role_arn           = aws_iam_role.waf_logs.arn
     prefix             = "waf_logs/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
-    bucket_arn         = aws_s3_bucket.logs.arn
+    bucket_arn         = "arn:aws:s3:::${var.cbs_satellite_bucket_name}"
     compression_format = "GZIP"
   }
 
@@ -152,7 +149,6 @@ resource "aws_kinesis_firehose_delivery_stream" "waf_logs" {
   }
 }
 
-# IAM role for WAF logging
 resource "aws_iam_role" "waf_logs" {
   name = "cms-waf-logs-role"
 
@@ -193,8 +189,8 @@ resource "aws_iam_role_policy" "waf_logs" {
           "s3:PutObject"
         ]
         Resource = [
-          aws_s3_bucket.logs.arn,
-          "${aws_s3_bucket.logs.arn}/*"
+          "arn:aws:s3:::${var.cbs_satellite_bucket_name}",
+          "arn:aws:s3:::${var.cbs_satellite_bucket_name}/*"
         ]
       }
     ]

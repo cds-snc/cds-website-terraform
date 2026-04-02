@@ -9,6 +9,12 @@ resource "aws_alb" "cms-load-balancer" {
   drop_invalid_header_fields = true
   enable_deletion_protection = true
 
+  access_logs {
+    bucket  = var.cbs_satellite_bucket_name
+    prefix  = "alb_logs"
+    enabled = true
+  }
+
   tags = {
     (var.billing_tag_key) = var.billing_tag_value
     Terrafrom             = true

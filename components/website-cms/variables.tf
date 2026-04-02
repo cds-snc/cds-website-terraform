@@ -68,3 +68,7 @@ variable "product_name" {
   description = "Name of the product/service"
   default     = "website-cms"
 }
+variable "cbs_satellite_bucket_name" {
+  description = "The Cloud Based Sensor bucket name"
+  type        = string
+}

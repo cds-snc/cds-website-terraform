@@ -186,14 +186,12 @@ resource "aws_eip" "website-cms" {
     CostCenter = var.product_name
   }
 }
-
-# VPC Flow Logs
 resource "aws_flow_log" "vpc" {
-  log_destination      = "${aws_s3_bucket.logs.arn}/vpc_flow_logs/"
+  log_destination      = "arn:aws:s3:::${var.cbs_satellite_bucket_name}/vpc_flow_logs/"
   log_destination_type = "s3"
   traffic_type         = "ALL"
   vpc_id               = aws_vpc.website-cms.id
-  
+
   log_format = "$${vpc-id} $${version} $${account-id} $${interface-id} $${srcaddr} $${dstaddr} $${srcport} $${dstport} $${protocol} $${packets} $${bytes} $${start} $${end} $${action} $${log-status} $${subnet-id} $${instance-id}"
 
   tags = {
