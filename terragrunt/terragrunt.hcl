@@ -9,6 +9,7 @@ inputs = {
   account_id   = local.account_id
   product_name = local.product_name
   region       = "ca-central-1"
+  cbs_satellite_bucket_name = "cbs-satellite-${local.account_id}"
 }
 
 generate "provider" {
