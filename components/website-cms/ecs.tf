@@ -40,7 +40,7 @@ resource "aws_ecs_task_definition" "cds-website-cms" {
 resource "aws_ecs_service" "website-cms-ecs" {
   name            = "website-cms-ecs"
   cluster         = "website-cms-cluster"
-  desired_count   = 1
+  desired_count   = 0
   launch_type     = "FARGATE"
   task_definition = aws_ecs_task_definition.cds-website-cms.arn
 
