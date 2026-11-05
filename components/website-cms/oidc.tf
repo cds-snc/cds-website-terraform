@@ -19,7 +19,7 @@ module "oidc" {
     {
       name : local.plan_name,
       repo_name : "cds-website-terraform"
-      claim : "*"
+      claim : "pull_request"
     },
     {
       name : local.deploy_name,
@@ -38,17 +38,45 @@ resource "aws_iam_role_policy_attachment" "readonly" {
   policy_arn = data.aws_iam_policy.readonly.arn
 }
 
-## Gives the plan role access to all secrets in the repo this is needed since ReadOnly doesn't provide that access
-## This also gives the plan role the ability to the state bucket and the dynamodb lock table.
-module "attach_tf_plan_policy" {
-  source     = "github.com/cds-snc/terraform-modules?ref=v2.0.1//attach_tf_plan_policy"
-  account_id = var.account_id
-  role_name  = local.plan_name
-  # This needs to match the data in the root terragrunt.hcl
-  bucket_name       = "${var.product_name}-tf"
-  lock_table_name   = "terraform-state-lock-dynamo"
-  billing_tag_key   = "CostCentre"
-  billing_tag_value = var.product_name
+## Least-privilege state access for the plan role: read-only on the state bucket and
+## lock/unlock on the dynamodb lock table. 
+data "aws_iam_policy_document" "plan_state_access" {
+  statement {
+    sid       = "ReadStateObjects"
+    effect    = "Allow"
+    actions   = ["s3:GetObject"]
+    resources = ["arn:aws:s3:::${var.product_name}-tf/*"]
+  }
+
+  statement {
+    sid       = "ListStateBucket"
+    effect    = "Allow"
+    actions   = ["s3:ListBucket", "s3:GetBucketLocation"]
+    resources = ["arn:aws:s3:::${var.product_name}-tf"]
+  }
+
+  statement {
+    sid     = "StateLockTable"
+    effect  = "Allow"
+    actions = ["dynamodb:DescribeTable", "dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:DeleteItem"]
+    resources = [
+      "arn:aws:dynamodb:${var.region}:${var.account_id}:table/terraform-state-lock-dynamo"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "plan_state_access" {
+  name   = "${local.plan_name}_state_access"
+  policy = data.aws_iam_policy_document.plan_state_access.json
+
+  tags = {
+    CostCentre = var.product_name
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "plan_state_access" {
+  role       = local.plan_name
+  policy_arn = aws_iam_policy.plan_state_access.arn
 }
 
 data "aws_iam_policy" "admin" {
