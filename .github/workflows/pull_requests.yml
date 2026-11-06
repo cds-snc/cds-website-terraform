@@ -61,7 +61,7 @@ jobs:
 
       - name: Terragrunt plan website-cms
         if: steps.filter.outputs.website-cms == 'true' || steps.filter.outputs.common == 'true'
-        uses: cds-snc/terraform-plan@529b272050a8f718d14c59e62b59c124eead7efc # v5.0.4
+        uses: cds-snc/terraform-plan@e08baaf605af7604ca7a138b6115be6dbd2882e8 # v5.0.5
         with:
           directory: "terragrunt/website-cms"
           comment-delete: "true"
