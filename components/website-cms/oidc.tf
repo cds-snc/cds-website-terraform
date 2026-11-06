@@ -19,7 +19,7 @@ module "oidc" {
     {
       name : local.plan_name,
       repo_name : "cds-website-terraform"
-      claim : "*"
+      claim : "pull_request"
     },
     {
       name : local.deploy_name,
